@@ -1,0 +1,52 @@
+public List<cContact> fetchContacts {get; set;}
+public Account relatedAccount {get; set;}
+public ContactsController(){
+        relatedAccount = new Account();
+        fetchContacts = new List<cContact>();
+    }
+    
+    //created by rishabh sharma : function to fetch contact details in vfpage: dated 09-03-2022
+    public List<cContact> getContacts(){
+        fetchContacts = new List<cContact>();
+        for(Contact con : [select id, name, Email, Phone from Contact where AccountId=null]){
+            fetchContacts.add(new cContact(con));
+        }
+        return fetchContacts;
+    }
+    
+    // created by rishabh sharma: function to add accounts : dated 10-03-2022
+    public void insertAccount(){
+        List <Account> insertionList = new List<Account>();
+        List <Contact> updateContacts = new List<Contact>();
+        if(relatedAccount.Name!=null){
+            insertionList.add(relatedAccount);
+            insert insertionList;
+            for(cContact c: fetchContacts){
+                if(c.selected){
+				  if(c.con.name==null){
+					continue;
+				  }
+                    c.con.AccountId=relatedAccount.Id;
+                    updateContacts.add(c.con);
+                }
+            }
+            if(updateContacts!=null){
+                upsert updateContacts;
+            }
+        }else{
+            return;
+        }
+        relatedAccount=new Account();
+    }
+
+     //created by rishabh sharma : wrapper class for added functionality: dated 10-03-2022
+    public class ContactsControllerWrapper {
+        public Contact con {get; set;}
+        public Boolean selected {get; set;}
+
+        public ContactsControllerWrapper(Contact c) {
+            con = c;
+            selected = false;
+        }
+    }
+}
