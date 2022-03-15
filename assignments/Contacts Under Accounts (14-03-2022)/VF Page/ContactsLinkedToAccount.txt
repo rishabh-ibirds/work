@@ -1,0 +1,12 @@
+<apex:page controller="ContactsLinkedToAccount">
+    <apex:pageBlock >
+        <apex:repeat value="{!conRecordsMap}" var="key">
+            <apex:pageblockSection title="{!conRecordsMap[key][0].Account.name}">
+                <apex:repeat value="{!conRecordsMap[key]}" var="con">
+                    {!con.name}
+                </apex:repeat>
+            </apex:pageblockSection>        
+        </apex:repeat>
+    </apex:pageBlock>
+</apex:page>
+            
