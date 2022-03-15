@@ -1,0 +1,11 @@
+<apex:page controller="ContactsUnderAccounts" >
+    <apex:pageBlock title="Accounts">
+      <apex:repeat value="{!relationList}" var="r">
+        <apex:pageBlockSection title="{!r.ownerAcc.name}" columns="2">
+            <apex:repeat value="{!r.conRecords}" var="con">
+                {!con.name}
+            </apex:repeat>
+        </apex:pageBlockSection>
+      </apex:repeat>  
+    </apex:pageBlock>
+</apex:page>
