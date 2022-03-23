@@ -1,0 +1,10 @@
+/*
+    Trigger Created by Rishabh Sharma
+    Current functionalities:
+        1. Add a comma separated list of contact names related to an account whenever a contact is inserted with related account.
+*/
+trigger SetContactNames on Contact (after insert) {
+    if(Trigger.isAfter && Trigger.isInsert){
+        SetContactNamesHandler.afterInsert(Trigger.new);
+    }
+}

@@ -1,0 +1,29 @@
+/*
+------------------------------------------------------
+	Helper class for SetContactNamesHandler
+	Author		: Rishabh Sharma
+	Created		: 22/03/2022
+------------------------------------------------------
+*/
+public class SetContactNamesHelper {
+    // helper method to display contact names in custom field | created by Rishabh Sharma | 22/03/2022
+    public static void setContactNames(List<Contact> currentContacts){
+        List<Account> updateAccounts = new List<Account>();
+        Set<Id> accountIds = new Set<Id>();
+        for(Contact con : currentContacts){
+            accountIds.add(con.AccountId);
+        }
+        
+        for(Account acc : [select id, (select id, name from Contacts) from Account where Id in :accountIds]){
+            List<String> relatedCon = new List<String>();
+            for(Contact conRec : acc.Contacts){
+                relatedCon.add(conRec.name);
+            }
+            acc.Related_Contacts__c = relatedCon.toString();
+            updateAccounts.add(acc);
+        }
+        if(updateAccounts.size()>0){
+        	update updateAccounts;
+        }
+    }
+}
