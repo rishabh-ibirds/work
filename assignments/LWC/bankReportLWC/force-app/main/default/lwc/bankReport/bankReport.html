@@ -1,0 +1,46 @@
+<!--bankReport HTML page to construct ui-->
+<template >
+    <lightning-card  class="slds-size_12-of-12" variant="Narrow"  title="Bank Report" icon-name="standard:account">       
+            <lightning-input type="date" max={today} variant="standard" value={date} label="Start Date" placeholder="Select Date" onchange={handleDateChange} class="slds-col slds-size_3-of-12 slds-p-around_x-small"></lightning-input>
+            <div class="slds-grid slds-wrap slds-size_12-of-12 slds-p-around_x-small">
+            <table class="slds-col slds-no-row-hover slds-p-around_x-small slds-table slds-table_bordered">
+                <thead>
+                    <tr class="slds-line-height_reset">
+                        <th scope="col" rowspan="2"> Bank Name </th>
+                        <th scope="col"> Today </th>
+                        <th scope="col"> Yesterday </th>
+                        <th scope="col"> 1 Week Ago </th>
+                        <th scope="col"> Month Starting </th>
+                        <th scope="col"> 3 Months Ago </th>
+                        <th scope="col" colspan="4" class="slds-text-align_center"> Peak and Trough (Last 90 days) </th>
+                    </tr>
+                    <tr class="slds-line-height_reset">
+                        <th scope="col"> {dates.today} </th>
+                        <th scope="col"> {dates.yesterday} </th>
+                        <th scope="col"> {dates.week} </th>
+                        <th scope="col"> {dates.month} </th>
+                        <th scope="col"> {dates.threeMonths} </th>
+                        <th scope="col"> Highest </th>
+                        <th scope="col"> Highest Rate Date</th>
+                        <th scope="col"> Lowest </th>
+                        <th scope="col"> Lowest Rate Date </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr for:each={displayTable} for:item="b" for:index="index" key={b.bankName} class="slds-hint-parent" >
+                        <th scope="row"> {b.bankName}</th>
+                        <th scope="row"> {b.today}</th>
+                        <th scope="row" bgcolor={b.yesterdayColor}> {b.yesterday}</th>
+                        <th scope="row" bgcolor={b.weekColor}> {b.week} </th>
+                        <th scope="row" bgcolor={b.monthColor}> {b.month} </th>
+                        <th scope="row" bgcolor={b.threeMonthsColor}> {b.threeMonths} </th>
+                        <th scope="row"> {b.highest} </th>
+                        <th scope="row"> {b.highestDate} </th>
+                        <th scope="row"> {b.lowest} </th>
+                        <th scope="row"> {b.lowestDate} </th>
+                    </tr>
+                </tbody>
+            </table>
+            </div>       
+    </lightning-card>   
+</template>

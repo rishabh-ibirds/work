@@ -1,0 +1,87 @@
+<template>
+    <lightning-card  variant="Narrow"  title="Project Task Form" >
+        <div class="slds-grid slds-gutters slds-p-horizontal_small">
+            <div class="slds-col slds-size_6-of-12">
+                <lightning-combobox
+                    name="projectRecs"
+                    label="Projects"
+                    value={value}
+                    placeholder="Select Progress"
+                    onchange={handleTaskChange}
+                    options={options}
+                    required="true"
+                    class="slds-p-bottom_large">
+                </lightning-combobox>
+            </div>
+            <!-- <lightning-button variant="brand" label="New Task" class="slds-size_2-of-12 slds-p-top_large"></lightning-button> -->
+            <c-new-task onproject={handleRefresh} class="slds-size_2-of-12 slds-p-top_large"></c-new-task>
+            <div class="slds-col slds-size_4-of-12 slds-grid slds-gutters">
+                    <lightning-button-icon icon-name="utility:chevronleft" onclick={prevDate} label="<" class="slds-col slds-size_2-of-12 slds-align_absolute-center"></lightning-button-icon>
+                    <lightning-input type="date" variant="standard" name="name" value={displayDate} class="slds-col slds-size_8-of-12 slds-align_absolute-center slds-p-bottom_large" label="Date" onchange={handleDate}></lightning-input>
+                    <lightning-button-icon icon-name="utility:chevronright" onclick={nextDate} label=">" class="slds-col slds-size_2-of-12 slds-align_absolute-center"></lightning-button-icon>            
+            </div>
+        </div>
+            <!-- <lightning-datatable 
+                if:true={filteredRecords}
+                key-field="Id"
+                data={filteredRecords}
+                columns={columns}
+                onsave={handleSave}
+                hide-checkbox-column
+            >
+            </lightning-datatable> -->
+            <table if:true={filteredRecords} class="slds-table slds-table_cell-buffer slds-table_bordered slds-p-horizontal_small">
+                <thead>
+                    <tr class="slds-line-height_reset">
+                        <th scope="col"> Task Name </th>
+                        <th scope="col"> Task Type </th>
+                        <th scope="col"> Description </th>
+                        <th scope="col"> Hours </th>
+                        <th scope="col"> Add/Remove </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr for:each={filteredRecords} for:item="task" key={task.Id} for:index="index" class="slds-hint-parent">
+                        <th scope="row"> {task.Name} </th> 
+                        <th scope="row"> {task.Task_Type__c}</th>
+                        <th scope="row"> <lightning-input type="text" value={task.Description__c} variant="standard" name={index} placeholder="type here..." onchange={handleDescriptionChange} class="desc" required ></lightning-input></th>
+                        <th scope="row"> {task.Hours__c} </th>
+                        <th scope="row"> N/A </th>
+                    </tr>
+                    <template if:true={isToday}>
+                    <tr for:each={newRecs} for:item="newTask" key={newTask.Id} for:index="index" class="slds-hint-parent" >       
+                        <th scope="row"> 
+                            <lightning-input type="text" name="Name" value={newTask.Name} variant="standard" data-index={index} onchange={handleNewRecs} required="true" class="chk"></lightning-input> 
+                        </th> 
+                        <th scope="row"> 
+                            <!-- <lightning-input type="c" name="Task_Type__c" value={newTask.Task_Type__c} variant="standard" label="label" data-index={index} onchange={handleNewRecs}></lightning-input>  -->
+                            <lightning-combobox
+                                name="Task_Type__c"
+                                value={value}
+                                data-index={index}
+                                placeholder="Select Task Type"
+                                options={taskTypes}
+                                onchange={handleNewRecs} 
+                                required="true"
+                                class="chk"
+                                ></lightning-combobox>
+                        </th> 
+                        <th scope="row"> 
+                            <lightning-input type="text" name="Description__c" value={newTask.Description__c} variant="standard" data-index={index} onchange={handleNewRecs} required="true" class="chk"></lightning-input>
+                        </th>
+                        <th scope="row">
+                            <lightning-input type="number" variant="standard" name="Hours__c" value={newTask.Hours__c} data-index={index} onchange={handleNewRecs} required="true" class="chk"></lightning-input>
+                        </th> 
+                        <th scope="row"> 
+                            <lightning-button-icon icon-name="utility:add" variant="brand" label="Add Row" title="titleName" onclick={addRow} data-index={index} class="slds-p-top_large"></lightning-button-icon>
+                            <lightning-button-icon icon-name="utility:delete" variant="destructive" label="Remove Row" onclick={removeRow} if:true={index} data-index={index} class="slds-p-top_large"></lightning-button-icon> 
+                        </th>
+                    </tr>
+                </template>
+                </tbody>
+            </table>
+        <p slot="footer"> 
+            <lightning-button type="submit" variant="brand" label="Submit" onclick={handleSubmit}></lightning-button>
+         </p>
+    </lightning-card>
+</template>

@@ -1,0 +1,8 @@
+/*
+    A standalone trigger to experiment with picklist values
+    Author    : Rishabh Sharma
+    Created   : 23/03/2022
+*/
+trigger PromoteContactDesignation on Contact (before update, before insert) {
+    PromoteContactDesignationHandler.promote(Trigger.new);
+}

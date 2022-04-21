@@ -1,0 +1,19 @@
+<template>
+    <h1>{fName}</h1>
+    <h2>{lName}</h2>
+    <table class="slds-table slds-table_cell-buffer slds-table_bordered">
+        <thead>
+            <tr class="slds-line-height_reset">
+                <th scope="col"> First Name </th>
+                <th scope="col"> Last Name </th>
+            </tr>
+        </thead>
+        <tbody if:true={contacts} for:each={contacts} for:item="con" for:index="i" key= {con.id}>
+            <tr   class="slds-hint-parent">
+                    <th  scope="row"> {con.FirstName} </th>
+                    <th scope="row"> {con.LastName}</th>
+            </tr>
+        </tbody>
+    </table>
+    <lightning-button variant="destructive" label="Click Me" title="Click Me" onclick={handleClick}> Click Me Sempai</lightning-button>
+</template>

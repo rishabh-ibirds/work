@@ -1,0 +1,42 @@
+<template>
+    <section role="dialog" tabindex="-1" class="slds-modal slds-fade-in-open slds-modal_medium" aria-labelledby="modal-heading-01" aria-modal="true">
+        <div class="slds-modal__container">
+          <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse">
+            <svg class="slds-button__icon slds-button__icon_large" aria-hidden="true">
+              <use xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#close"></use>
+            </svg>
+            <span class="slds-assistive-text">Cancel and close</span>
+          </button>
+          <div class="slds-modal__header">
+            <h1 id="modal-heading-01" class="slds-modal__title slds-hyphenate">Modal header</h1>
+            <lightning-combobox name="Status" label="Status" placeholder="Select Status" options={statusOptions} onchange={handleChange} value={value} class="cbox" ></lightning-combobox>
+            <lightning-input name="Description" type="text" variant="standard"  label="label" onchange={handleChange} class="des"></lightning-input>
+            <lightning-button variant="brand" label="+" onclick={handleClick}></lightning-button>
+          </div>
+          <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+            <table if:true={taskArr} class="slds-table slds-table_cell-buffer slds-table_bordered">
+                <thead>
+                    <tr class="slds-line-height_reset">
+                        <th scope="col"> Complete? </th>
+                        <th scope="col"> Task Subject </th>
+                        <th scope="col"> Status </th>
+                    </tr>
+                </thead>
+                <tbody  for:each={taskArr} for:index="i" for:item="t" key={taskArr.Id}>
+                    <tr class="slds-hint-parent">
+                        <th scope="row"> <input type="checkbox" class="chkbox" name="options" value={t.Id} disabled={t.Pending} onclick={handleSelect}/> </th>
+                        <th scope="row"> {t.Subject} </th>
+                        <th scope="row"> {t.Status} </th>
+                    </tr>
+                </tbody>
+            </table>
+            <p if:false={taskArr}> NO Tasks</p>
+          </div>
+          <div class="slds-modal__footer">
+            <button class="slds-button slds-button_neutral" aria-label="Cancel and close" onclick={fireEvent}>Cancel</button>
+            <button class="slds-button slds-button_brand" onclick={handleUpdate}>Save</button>
+          </div>
+        </div>
+      </section>
+      <div  class="slds-backdrop slds-backdrop_open" role="presentation"></div>  
+</template>

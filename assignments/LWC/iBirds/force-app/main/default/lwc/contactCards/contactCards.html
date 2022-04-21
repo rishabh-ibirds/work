@@ -1,0 +1,33 @@
+<template>
+    <lightning-input label="First Name" name='FirstName' type="text" onchange={handleRecChange}>
+    </lightning-input>
+    <lightning-input label="Last Name" name='LastName' type="text" onchange={handleRecChange} required="true">
+    </lightning-input>
+    <lightning-input label="Email" name='Email' type="email" onchange={handleRecChange}>
+    </lightning-input>
+    <lightning-input label="Phone" name='Phone' type="tel" onchange={handleRecChange} >
+    </lightning-input>
+    <lightning-button variant="brand" label="Save" title="Save" onclick={handleBtnClick}></lightning-button>
+    
+    <lightning-input label="Search" type="search" placeholder="Text to search" onchange={handleKeyChange}>
+    </lightning-input>
+   <template if:true={filteredRecords} for:each={filteredRecords} for:item="con" for:index="index">
+    <div class="card" key={con.Id}>
+        <lightning-card  title={con.Name}>           
+                <p if:true={con.Email} class="slds-p-horizontal_small">{con.Email}</p>
+                <p if:false={con.Email} class="slds-p-horizontal_small">N/A</p>
+                <div if:true={con.Tasks} class="slds-p-horizontal_small" slot="actions">
+                    <c-contact-cards-task-count task-count={con.Tasks.length}></c-contact-cards-task-count>
+                </div>
+                <div if:false={con.Tasks} class="slds-p-horizontal_small" slot="actions">
+                    <c-contact-cards-task-count task-count="0"></c-contact-cards-task-count>
+                </div>
+                <lightning-button variant="brand" label="+" title="add task" slot="actions" value={con} onclick={showTask}></lightning-button>
+                <lightning-progress-bar if:true={con.Tasks} value={con.Progress} size="large"></lightning-progress-bar>
+        </lightning-card>
+    </div>
+</template>
+<template if:true={isVisibleTask}>
+    <c-popup tasks={tasks} who-id={conId} oncls={handleChildEvent}></c-popup>
+</template>
+</template>
