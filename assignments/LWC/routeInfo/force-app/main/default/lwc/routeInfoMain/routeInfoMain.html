@@ -1,0 +1,58 @@
+<template>
+    <div class="slds-grid">
+        <div class="slds-col slds-size_1-of-2">
+            <lightning-card class="slds-size_1-of-2" variant="Narrow">
+                <div class="slds-col slds-grid slds-size_12-of-12 slds-wrap ">
+                    <div class="slds-col slds-grid slds-size_12-of-12 slds-align_absolute-center slds-p-left_large">
+                        <lightning-button-icon-stateful class="slds-col slds-size_2-of-12" icon-name="utility:routing_offline" name="all" selected={likeState.all} onclick={handleButtonClick} alternative-text="Like" disabled={disableTime}></lightning-button-icon-stateful>
+                        <lightning-button-icon-stateful class="slds-col slds-size_2-of-12" icon-name="utility:trail"  name="walking" selected={likeState.walking} onclick={handleButtonClick} alternative-text="Like" disabled={disableTime}></lightning-button-icon-stateful>
+                        <lightning-button-icon-stateful class="slds-col slds-size_2-of-12" icon-name="custom:custom31" name="car" selected={likeState.car} onclick={handleButtonClick} alternative-text="Like" disabled={disableTime}></lightning-button-icon-stateful>
+                        <lightning-button-icon-stateful class="slds-col slds-size_2-of-12" icon-name="custom:custom36" name="train" selected={likeState.train} onclick={handleButtonClick} alternative-text="Like" disabled={disableTime}></lightning-button-icon-stateful>
+                        <lightning-button-icon-stateful class="slds-col slds-size_2-of-12" icon-name="custom:custom80" name="bicycle" selected={likeState.bicycle} onclick={handleButtonClick} alternative-text="Like" disabled={disableTime}></lightning-button-icon-stateful>
+                        <lightning-button-icon-stateful class="slds-col slds-size_2-of-12" icon-name="custom:custom20" name="plane" selected={likeState.plane} onclick={handleButtonClick} alternative-text="Like" disabled={disableTime}></lightning-button-icon-stateful>
+                    </div>
+                    <lightning-icon class="slds-col slds-size_2-of-12 slds-p-top_medium slds-p-left_x-large" size="small" icon-name="utility:routing_offline" alternative-text="Doc image" ></lightning-icon>
+                    <lightning-input type="text" class="slds-col slds-size_8-of-12" variant="standard" name="name" value={locationName} onchange={handleLocation} placeholder="Location" onblur={removeMenu}></lightning-input>
+                    <div class="slds-col slds-size_10-of-12">
+                        <template if:true={showLocation}>
+                            <div class="slds-dropdown slds-dropdown_length-with-icon-5 slds-dropdown_medium" role="listbox">
+                                <ul class="slds-listbox slds-listbox_vertical" role="presentation">
+                                    <template for:each={filteredLocations} for:item="loc">
+                                        <li role="presentation" class="slds-listbox__item" key={loc.Id}>
+                                            <div data-value={loc.Id} data-label={loc.Name} data-route={loc.Main_Route__c} class="slds-media slds-listbox__option slds-listbox__option_entity slds-listbox__option_has-meta" onclick={handleSelectLocation} role="option">
+                                                <span class=" slds-listbox__option-text_entity slds-p-around--xx-small"> {loc.Name}</span>
+                                            </div>
+                                        </li>
+                                    </template>
+                                </ul>
+                            </div>
+                        </template>
+                    </div>
+                </div>
+                <div class="slds-col slds-grid slds-size_12-of-12 slds-wrap ">
+                    <lightning-icon class="slds-col slds-size_2-of-12 slds-p-top_medium slds-p-left_x-large" size="small" icon-name="utility:checkin" alternative-text="Doc image" ></lightning-icon>
+                    <lightning-input type="text" class="slds-col slds-size_8-of-12" variant="standard" name="name" value={destinationName} onchange={handleDestination} placeholder="Destination" onblur={removeMenu}></lightning-input>
+                    <div class="slds-col slds-size_10-of-12">
+                        <template if:true={showDestination} >
+                            <div class="slds-dropdown slds-dropdown_length-with-icon-5 slds-dropdown_medium" role="listbox">
+                                <ul class="slds-listbox slds-listbox_vertical" role="presentation">
+                                    <template for:each={filteredDestinations} for:item="des">
+                                        <li role="presentation" class="slds-listbox__item" key={des.Id}>
+                                            <div data-value={des.Id} data-label={des.Name} data-route={des.Main_Route__c} onclick={handleSelectDestination} class="slds-media slds-listbox__option slds-listbox__option_entity slds-listbox__option_has-meta" role="option">
+                                                <span class=" slds-listbox__option-text_entity slds-p-around--xx-small"> {des.Name}</span>
+                                            </div>
+                                        </li>
+                                    </template>
+                                </ul>
+                            </div>
+                        </template>
+                    </div>
+                </div>
+                <div slot="footer" class="time"></div>
+            </lightning-card>
+        </div>
+        <div class="slds-col slds-size_1-of-2">
+            <c-route-path route={routeStations} if:false={disableTime}></c-route-path>
+        </div>
+    </div>
+</template>
