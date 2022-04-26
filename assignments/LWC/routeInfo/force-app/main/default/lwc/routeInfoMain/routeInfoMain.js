@@ -18,7 +18,7 @@ export default class RouteInfoMain extends LightningElement {
   route;
   routeStations = [];
   speedMap = {};
-  @track likeState = {all: false,
+  @track likeState = {all: true,
                walking: false,
                car: false,
                train: false,
@@ -79,6 +79,7 @@ export default class RouteInfoMain extends LightningElement {
     if(this.location != undefined && val != this.allStationsMap[this.location].Name){
       this.location = undefined;
       this.disableTime = true;
+      this.template.querySelector('.time').innerHTML = "";
       console.log('location removed');
     }
     if(this.location == undefined && this.destination == undefined){
@@ -101,6 +102,7 @@ export default class RouteInfoMain extends LightningElement {
     if(this.destination != undefined && val != this.allStationsMap[this.destination].Name){
       this.destination = undefined;
       this.disableTime = true;
+      this.template.querySelector('.time').innerHTML = "";
       console.log('destination removed');
     }
     if(this.location == undefined && this.destination == undefined){
@@ -168,9 +170,11 @@ export default class RouteInfoMain extends LightningElement {
         let start = 0;
         let end = stationArray.length-1;
 
-        while(start<end){
+        while(start <= end){
           stationArray[start].Distance = totalDistance - stationArray[start].Distance;
-          stationArray[end].Distance = totalDistance - stationArray[end].Distance;
+          if(start != end){
+            stationArray[end].Distance = totalDistance - stationArray[end].Distance;
+          }  
           let temp = stationArray[start];
           stationArray[start] = stationArray[end];
           stationArray[end] = temp;
