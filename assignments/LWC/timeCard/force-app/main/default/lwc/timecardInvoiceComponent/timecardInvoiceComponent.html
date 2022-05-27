@@ -1,0 +1,22 @@
+<template>
+    <lightning-card  variant="Narrow"  title="Invoices" icon-name="standard:account">
+        <table class="slds-table slds-table_cell-buffer slds-table_bordered slds-p-horizontal_medium">
+            <thead>
+                <tr class="slds-line-height_reset">
+                    <th scope="col"> Invoice Number </th>
+                    <th scope="col"> Resource </th>
+                    <th scope="col"> Timecard</th>
+                    <th scope="col"> Cost </th>
+                </tr>
+            </thead>
+            <tbody for:each={invoices} for:item="i" for:index="index" key={i.Id}>
+                <tr  class="slds-hint-parent">
+                    <th scope="row"> <a href={i.link}>{i.Name}</a></th>
+                    <th scope="row"> <a href={i.Contact__r.link}>{i.Contact__r.Name} </a></th>
+                    <th scope="row"> <a href={i.Timecard__r.link}>{i.Timecard__r.Name} (week starting {i.Timecard__r.date})</a></th>
+                    <th scope="row"> {i.Cost__c}$ </th>
+                </tr>
+            </tbody>
+        </table>
+    </lightning-card>
+</template>

@@ -1,0 +1,77 @@
+<template>
+    <!--card start-->
+    <lightning-card  variant="Narrow">
+        <a href="#" slot="actions"><lightning-button variant="base" label="Logout" icon-name="utility:logout"></lightning-button></a>
+        
+        <!--tabset start-->
+        <lightning-tabset variant="scoped">
+
+            <!--Event/Task tab start-->
+            <lightning-tab label="Event/Task">
+                <table if:true={eventTask.length} class="slds-table slds-table_cell-buffer slds-table_bordered">
+                    <thead>
+                        <tr class="slds-line-height_reset">
+                            <th scope="col"> Name </th>
+                            <th scope="col"> Type </th>
+                            <th scope="col"> Date </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr for:each={eventTask} for:item="evt" for:index="index" key={evt.name} class="slds-hint-parent">
+                            <th scope="row"> {evt.name} </th>
+                            <th scope="row"> {evt.typ} </th>
+                            <th scope="row"> {evt.dt} </th>
+                        </tr>
+                    </tbody>
+                </table>
+                <div if:false={eventTask.length} class="slds-text-heading_medium slds-align_absolute-center"> No Records</div>
+            </lightning-tab>
+            <!--Event/Task tab End-->
+
+            <!--Campaign/Opp tab start-->
+            <lightning-tab label="Campaign/Opportunity">
+                <table if:true={oppCampaign.length} class="slds-table slds-table_cell-buffer slds-table_bordered">
+                    <thead>
+                        <tr class="slds-line-height_reset">
+                            <th scope="col"> Name </th>
+                            <th scope="col"> Type </th>
+                            <th scope="col"> Date </th>
+                            <th scope="col"> Amount </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr for:each={oppCampaign} for:item="oc" for:index="index" key={oc.name} class="slds-hint-parent">
+                            <th scope="row"> {oc.name} </th>
+                            <th scope="row"> {oc.typ} </th>
+                            <th scope="row"> {oc.dt} </th>
+                            <th scope="row"> {oc.amount} </th>
+                        </tr>
+                    </tbody>
+                </table>
+                <div if:false={oppCampaign.length} class="slds-text-heading_medium slds-align_absolute-center"> No Records</div>
+            </lightning-tab>
+            <!--Campaign/Opp tab end-->
+
+            <!--Files tab start-->
+            <lightning-tab label="Files">
+                <table if:true={files.length} class="slds-table slds-table_cell-buffer slds-table_bordered">
+                    <thead>
+                        <tr class="slds-line-height_reset">
+                            <th scope="col"> Name </th>
+                            <th scope="col"> Type </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr for:each={files} for:item="f" for:index="index" key={f.url} class="slds-hint-parent">
+                            <th scope="row"> {f.name} </th>
+                            <th scope="row"> <a href={f.url}> <lightning-icon icon-name={f.ico} alternative-text="Doc image" ></lightning-icon></a></th>
+                        </tr>
+                    </tbody>
+                </table>
+                <div if:false={files.length} class="slds-text-heading_medium slds-align_absolute-center"> No Records</div>
+            </lightning-tab>
+            <!--Files tab end-->
+
+        </lightning-tabset><!--tabset end-->
+    </lightning-card><!--card end-->
+</template>

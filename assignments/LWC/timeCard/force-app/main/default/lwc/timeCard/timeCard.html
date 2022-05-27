@@ -1,0 +1,90 @@
+<template>
+    <lightning-card variant="Narrow">
+        <!--Username and logout start -->
+        <div if:true={username} class="slds-grid slds-p-horizontal_medium slds-p-bottom_medium">
+            <div class="slds-text-heading_small slds-col_bump-right"><b>Hi {username}</b></div>
+            <a href="https://axzyte-developer-edition.ap27.force.com/timecard/secur/logout.jsp">
+                <lightning-button variant="base" icon-name="utility:logout" label="Logout" class="slds-col">
+                </lightning-button>
+            </a>
+        </div>
+        <!--Username and logout end -->
+        
+        <!--header start-->
+        <div class="heading slds-grid slds-wrap slds-p-around_large">
+            <div
+                class="slds-grid slds-size_full slds-align_absolute-center slds-text-heading_large slds-p-bottom_large">
+                Time Card</div>
+            <div class="subheading slds-grid slds-align_absolute-center slds-text-heading_small slds-p-top_large">
+                Please Save or Submit to make changes to the record.
+            </div>
+        </div>
+        <hr />
+        <!--header end-->
+
+        <!--body start-->
+        <div class="slds-grid">
+            <table
+                class="slds-table  slds-no-row-hover slds-table_cell-buffer slds-table_bordered slds-border_left slds-border_right slds-table_col-bordered">
+                <thead>
+                    <tr class="date slds-line-height_reset"></tr>
+                </thead>
+                <tbody if:true={timeCardRecord}>
+                    <tr class="slds-hint-parent">
+                        <td scope="row">
+                            <lightning-input class="timecard" value={timeCardRecord.Mon__c} type="number"
+                                variant="standard" name="Mon__c" onchange={handleTimecardChange}
+                                disabled={freezeRecord}></lightning-input>
+                        </td>
+                        <td scope="row">
+                            <lightning-input class="timecard" value={timeCardRecord.Tue__c} type="number"
+                                variant="standard" name="Tue__c" onchange={handleTimecardChange}
+                                disabled={freezeRecord}></lightning-input>
+                        </td>
+                        <td scope="row">
+                            <lightning-input class="timecard" value={timeCardRecord.Wed__c} type="number"
+                                variant="standard" name="Wed__c" onchange={handleTimecardChange}
+                                disabled={freezeRecord}></lightning-input>
+                        </td>
+                        <td scope="row">
+                            <lightning-input class="timecard" value={timeCardRecord.Thu__c} type="number"
+                                variant="standard" name="Thu__c" onchange={handleTimecardChange}
+                                disabled={freezeRecord}></lightning-input>
+                        </td>
+                        <td scope="row">
+                            <lightning-input class="timecard" value={timeCardRecord.Fri__c} type="number"
+                                variant="standard" name="Fri__c" onchange={handleTimecardChange}
+                                disabled={freezeRecord}></lightning-input>
+                        </td>
+                        <td scope="row">
+                            <lightning-input class="timecard" value={timeCardRecord.Sat__c} type="number"
+                                variant="standard" name="Sat__c" onchange={handleTimecardChange}
+                                disabled={freezeRecord}></lightning-input>
+                        </td>
+                        <td scope="row">
+                            <lightning-input class="timecard" value={timeCardRecord.Sun__c} type="number"
+                                variant="standard" name="Sun__c" onchange={handleTimecardChange}
+                                disabled={freezeRecord}></lightning-input>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <!--body end-->
+
+        <!--footer start-->
+        <div class="slds-grid slds-p-around_medium">
+            <div class="slds-col slds-col_bump-right">
+                <lightning-button variant="brand" label="Save" onclick={handleSave} disabled={freezeRecord}
+                    class="slds-p-right_medium"></lightning-button>
+                <lightning-button variant="brand" label="Submit" onclick={handleSubmit} disabled={freezeRecord}>
+                </lightning-button>
+            </div>
+            <div class="hours slds-col slds-text-heading_small slds-text-align_right">
+                Total: {total} <br />
+                Overtime: {overtime}
+            </div>
+        </div>
+        <!--footer end-->
+    </lightning-card>
+</template>

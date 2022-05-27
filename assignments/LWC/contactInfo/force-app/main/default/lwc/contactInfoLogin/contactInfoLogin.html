@@ -1,0 +1,38 @@
+<template>
+    <div if:false={showInfo} class="body slds-align_absolute-center">
+        <!--card start-->
+        <lightning-card variant="Narrow">
+            <!--parent grid start-->
+            <div class="slds-grid slds-grid_align-center slds-wrap">
+
+                <div class="title slds-size_12-of-12 slds-text-heading_large slds-p-around_large slds-align_absolute-center">Login</div>
+                <div class="subtitle slds-size_12-of-12 slds-align_absolute-center slds-p-bottom_large"></div>
+                
+                <lightning-icon 
+                    class="slds-col slds-size_12-of-12 slds-align_absolute-center" 
+                    icon-name="utility:smiley_and_people" 
+                    alternative-text="Doc image">
+                </lightning-icon>
+
+                <lightning-input 
+                    class="input slds-col slds-size_10-of-12 slds-p-around_large" 
+                    type="text" 
+                    variant="standard" 
+                    placeholder="Enter Email/Phone">
+                </lightning-input>
+
+                <lightning-button 
+                    variant="brand" 
+                    label="Send OTP" 
+                    title="titleName" 
+                    onclick={handleLogin} 
+                    class="slds-col slds-size_4-of-12 slds-align_absolute-center slds-p-bottom_large">
+                </lightning-button>
+
+            </div><!--parent grid end-->
+        </lightning-card><!--card end-->
+    </div><!--body div end-->
+    <template if:true={showInfo}>
+        <c-contact-info-page contact-id={contactId}></c-contact-info-page>
+    </template>
+</template>

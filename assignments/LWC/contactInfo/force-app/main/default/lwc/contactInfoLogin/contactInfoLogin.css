@@ -1,0 +1,28 @@
+.body{
+    padding-top: 3%;
+    max-width: 60%;
+    animation-duration: 1s;
+    animation-name: slidein;
+}
+
+lightning-icon {
+    zoom: 500%;
+    -moz-transform: scale(4);
+    --sds-c-icon-color-foreground-default: #007bc2;
+}
+
+:host{
+    --slds-c-card-shadow: 5px 5px 5px 5px rgba(0, 0, 0, 0.13);
+}
+
+  
+@keyframes slidein {
+    from {
+        margin-top: 100%;
+        width: 300%;
+    }
+    to {
+        margin-top: 0;
+        width: 100%;
+    }
+}
